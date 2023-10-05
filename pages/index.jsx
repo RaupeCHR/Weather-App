@@ -1,7 +1,10 @@
+// importieren der erforderlichen module
 import Head from 'next/head';
 import axios from 'axios';
 import { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
+
+
 
 export default function Home() {
   const [city, setCity] = useState('');
@@ -9,9 +12,12 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [tempInCelsius, setTempInCelsius] = useState('');
 
+  
+// abrufen der wetterdaten
   const fetchWeather = (e) => {
     e.preventDefault();
     setLoading(true);
+
 
     const MY_WEATHER_API_KEY = 'fed239da384834b437c17b4e27c0fe22';
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${MY_WEATHER_API_KEY}`;
@@ -22,7 +28,7 @@ export default function Home() {
         setWeather(response.data);
         const weatherData = response.data;
         const tempCelsius = (weatherData.main.temp - 273.15).toFixed(2);
-        setTempInCelsius(tempCelsius); // Setzen Sie die Temperatur in Celsius im Zustand
+        setTempInCelsius(tempCelsius);
       })
       .catch((error) => {
         console.error(error);
@@ -31,7 +37,7 @@ export default function Home() {
         setLoading(false);
       });
   };
-
+// Aufbau der Webseite
   return (
     <div className="container">
   <Head>
